@@ -208,11 +208,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onUpdateUs
     <div className="min-h-screen p-4 pb-20">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <Avatar className="w-12 h-12 cursor-pointer hover:opacity-80 transition-opacity">
+        <div className="flex-1"></div>
+        <div className="flex flex-col items-center text-center">
+          <div className="relative mb-3">
+            <Avatar className="w-16 h-16 cursor-pointer hover:opacity-80 transition-opacity">
               <AvatarImage src={user.avatar_url} alt={user.name} />
-              <AvatarFallback className="bg-gradient-to-br from-amber-400 to-orange-500 text-white font-semibold">
+              <AvatarFallback className="bg-gradient-to-br from-amber-400 to-orange-500 text-white font-semibold text-lg">
                 {user.name?.charAt(0)?.toUpperCase() || 'U'}
               </AvatarFallback>
             </Avatar>
@@ -230,12 +231,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onUpdateUs
               )}
             </Button>
           </div>
-          <div>
-            <h1 className="text-2xl font-bold text-gray-800">
-              {getGreeting()}, {user.name}!
-            </h1>
-            <p className="text-gray-600">Bun venit la Croissanteria</p>
-          </div>
+          <h1 className="text-2xl font-bold text-gray-800">
+            {getGreeting()}, {user.name}!
+          </h1>
+          <p className="text-gray-600">Bun venit la Croissanteria</p>
         </div>
         <Button
           onClick={onLogout}
