@@ -87,6 +87,7 @@ export type Database = {
           loyalty_level: string | null
           name: string | null
           points: number | null
+          total_points_earned: number | null
           updated_at: string | null
         }
         Insert: {
@@ -98,6 +99,7 @@ export type Database = {
           loyalty_level?: string | null
           name?: string | null
           points?: number | null
+          total_points_earned?: number | null
           updated_at?: string | null
         }
         Update: {
@@ -109,6 +111,7 @@ export type Database = {
           loyalty_level?: string | null
           name?: string | null
           points?: number | null
+          total_points_earned?: number | null
           updated_at?: string | null
         }
         Relationships: []
@@ -225,7 +228,7 @@ export type Database = {
     }
     Functions: {
       calculate_loyalty_level: {
-        Args: { points_value: number }
+        Args: { total_earned_points: number }
         Returns: string
       }
     }
