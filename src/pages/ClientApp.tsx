@@ -16,6 +16,7 @@ export interface User {
   email: string;
   points: number;
   birthday?: string;
+  avatar_url?: string;
 }
 
 type ClientScreen = 'dashboard' | 'history' | 'rewards';
@@ -92,7 +93,8 @@ export const ClientApp: React.FC = () => {
           name: createdCustomer.name!,
           email: createdCustomer.email,
           points: createdCustomer.points || 0,
-          birthday: createdCustomer.birthday || undefined
+          birthday: createdCustomer.birthday || undefined,
+          avatar_url: createdCustomer.avatar_url || undefined
         });
       } else if (customer) {
         // Use name from user metadata if available, otherwise use customer name
@@ -106,7 +108,8 @@ export const ClientApp: React.FC = () => {
           name: actualName,
           email: customer.email,
           points: customer.points || 0,
-          birthday: customer.birthday || undefined
+          birthday: customer.birthday || undefined,
+          avatar_url: customer.avatar_url || undefined
         });
       }
     } catch (error) {

@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { User, LogOut, Star, Award, RotateCcw, Shield } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { User as UserType } from '@/pages/Index';
 import QRCode from 'qrcode';
 
@@ -108,11 +109,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
     <div className="min-h-screen p-4 pb-20">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-800">
-            {getGreeting()}, {user.name}!
-          </h1>
-          <p className="text-gray-600">Bun venit la Croissanteria</p>
+        <div className="flex items-center gap-3">
+          <Avatar className="w-12 h-12">
+            <AvatarImage src={user.avatar_url} alt={user.name} />
+            <AvatarFallback className="bg-gradient-to-br from-amber-400 to-orange-500 text-white font-semibold">
+              {user.name?.charAt(0)?.toUpperCase() || 'U'}
+            </AvatarFallback>
+          </Avatar>
+          <div>
+            <h1 className="text-2xl font-bold text-gray-800">
+              {getGreeting()}, {user.name}!
+            </h1>
+            <p className="text-gray-600">Bun venit la Croissanteria</p>
+          </div>
         </div>
         <Button
           onClick={onLogout}
