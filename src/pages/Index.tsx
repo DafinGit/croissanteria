@@ -3,7 +3,6 @@ import { AuthScreen } from '@/components/croissanteria/AuthScreen';
 import { Dashboard } from '@/components/croissanteria/Dashboard';
 import { RewardsScreen } from '@/components/croissanteria/RewardsScreen';
 import { HistoryScreen } from '@/components/croissanteria/HistoryScreen';
-import { ProfileScreen } from '@/components/croissanteria/ProfileScreen';
 import { NavigationBar } from '@/components/croissanteria/NavigationBar';
 import { ResetPasswordScreen } from '@/components/croissanteria/ResetPasswordScreen';
 import { BaristaScanner } from '@/components/croissanteria/BaristaScanner';
@@ -20,7 +19,7 @@ export type User = {
   avatar_url?: string;
 };
 
-export type Screen = 'auth' | 'dashboard' | 'rewards' | 'history' | 'profile' | 'reset-password';
+export type Screen = 'auth' | 'dashboard' | 'rewards' | 'history' | 'reset-password';
 
 const Index = () => {
   const [currentScreen, setCurrentScreen] = useState<Screen>('auth');
@@ -186,6 +185,7 @@ const Index = () => {
           <Dashboard 
             user={user}
             onLogout={handleLogout}
+            onUpdateUser={updateUser}
           />
         ) : null;
       case 'rewards':
@@ -199,13 +199,6 @@ const Index = () => {
         return user ? (
           <HistoryScreen 
             user={user}
-          />
-        ) : null;
-      case 'profile':
-        return user ? (
-          <ProfileScreen 
-            user={user}
-            onUpdateUser={updateUser}
           />
         ) : null;
       case 'reset-password':

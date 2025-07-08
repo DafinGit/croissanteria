@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { CreditCard, Gift, History, QrCode, User } from 'lucide-react';
+import { CreditCard, Gift, History, QrCode } from 'lucide-react';
 import { Screen } from '@/pages/Index';
 
 interface NavigationBarProps {
@@ -30,12 +30,6 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
       label: 'Istoric', 
       icon: History,
       activeColor: 'text-blue-600'
-    },
-    { 
-      id: 'profile' as Screen, 
-      label: 'Profil', 
-      icon: User,
-      activeColor: 'text-purple-600'
     }
   ];
 

@@ -2,21 +2,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { User, LogOut, Star, Award, RotateCcw, Shield } from 'lucide-react';
+import { User, LogOut, Star, Award, RotateCcw, Shield, Camera } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 import { User as UserType } from '@/pages/Index';
 import QRCode from 'qrcode';
 
 interface DashboardProps {
   user: UserType;
   onLogout: () => void;
+  onUpdateUser?: (updatedUser: UserType) => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onUpdateUser }) => {
   const qrCanvasRef = useRef<HTMLCanvasElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [qrToken, setQrToken] = useState<string>('');
   const [qrExpiry, setQrExpiry] = useState<Date>(new Date());
   const [currentTime, setCurrentTime] = useState<Date>(new Date());
+  const [uploading, setUploading] = useState(false);
+  const { toast } = useToast();
 
   const generateQRToken = () => {
     const timestamp = Date.now();
@@ -105,17 +111,125 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
   const pointsLevel = getPointsLevel(user.points);
   const IconComponent = pointsLevel.icon;
 
+  const uploadAvatar = async (file: File) => {
+    if (!file) return null;
+
+    setUploading(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${user.id}/${Date.now()}.${fileExt}`;
+      
+      // Upload to Supabase Storage
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(fileName, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(fileName);
+
+      return publicUrl;
+    } catch (error) {
+      console.error('Avatar upload error:', error);
+      toast({
+        title: "Eroare la încărcarea imaginii",
+        description: "Nu am putut încărca imaginea. Încearcă din nou.",
+        variant: "destructive"
+      });
+      return null;
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleAvatarUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast({
+        title: "Fișier invalid",
+        description: "Vă rugăm să selectați o imagine (PNG, JPG, GIF).",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast({
+        title: "Fișier prea mare",
+        description: "Imaginea trebuie să aibă maximum 5MB.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const avatarUrl = await uploadAvatar(file);
+    if (avatarUrl) {
+      // Update user profile with new avatar
+      const { error } = await supabase
+        .from('customers')
+        .update({ avatar_url: avatarUrl })
+        .eq('id', user.id);
+
+      if (error) {
+        console.error('Error updating avatar:', error);
+        toast({
+          title: "Eroare",
+          description: "Nu am putut actualiza profilul. Încearcă din nou.",
+          variant: "destructive"
+        });
+      } else {
+        if (onUpdateUser) {
+          onUpdateUser({ ...user, avatar_url: avatarUrl });
+        }
+        toast({
+          title: "Avatar actualizat!",
+          description: "Poza de profil a fost actualizată cu succes.",
+        });
+      }
+    }
+
+    // Reset file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
   return (
     <div className="min-h-screen p-4 pb-20">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center gap-3">
-          <Avatar className="w-12 h-12">
-            <AvatarImage src={user.avatar_url} alt={user.name} />
-            <AvatarFallback className="bg-gradient-to-br from-amber-400 to-orange-500 text-white font-semibold">
-              {user.name?.charAt(0)?.toUpperCase() || 'U'}
-            </AvatarFallback>
-          </Avatar>
+          <div className="relative">
+            <Avatar className="w-12 h-12 cursor-pointer hover:opacity-80 transition-opacity">
+              <AvatarImage src={user.avatar_url} alt={user.name} />
+              <AvatarFallback className="bg-gradient-to-br from-amber-400 to-orange-500 text-white font-semibold">
+                {user.name?.charAt(0)?.toUpperCase() || 'U'}
+              </AvatarFallback>
+            </Avatar>
+            <Button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              variant="ghost"
+              size="sm"
+              className="absolute -bottom-1 -right-1 h-6 w-6 p-0 bg-white rounded-full shadow-md hover:bg-gray-50 border"
+            >
+              {uploading ? (
+                <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-amber-600"></div>
+              ) : (
+                <Camera className="w-3 h-3 text-gray-600" />
+              )}
+            </Button>
+          </div>
           <div>
             <h1 className="text-2xl font-bold text-gray-800">
               {getGreeting()}, {user.name}!
@@ -132,6 +246,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
           <LogOut className="w-4 h-4" />
         </Button>
       </div>
+
+      {/* Hidden file input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={handleAvatarUpload}
+        className="hidden"
+      />
 
       {/* Loyalty Card */}
       <Card className="mb-6 backdrop-blur-sm bg-gradient-to-br from-white/90 to-white/70 shadow-xl border-0 overflow-hidden">
