@@ -132,7 +132,7 @@ export const BaristaScanner: React.FC = () => {
 
   const getPointsToAdd = () => {
     const purchaseAmount = parseFloat(amount) || 0;
-    return Math.floor(purchaseAmount * 10); // 1 LEI = 10 points
+    return Math.floor(purchaseAmount * 1); // 1 LEI = 1 point
   };
 
   return (
@@ -220,7 +220,7 @@ export const BaristaScanner: React.FC = () => {
                   <strong>Puncte de adăugat:</strong> {getPointsToAdd()} puncte
                 </p>
                 <p className="text-xs text-amber-600 mt-1">
-                  (1 LEI = 10 puncte)
+                  (1 LEI = 1 punct)
                 </p>
               </div>
             )}

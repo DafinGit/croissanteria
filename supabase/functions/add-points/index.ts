@@ -111,8 +111,8 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    // Calculate points (1€ = 10 points)
-    const pointsToAdd = Math.floor(amount * 10);
+    // Calculate points (1 LEI = 1 point)
+    const pointsToAdd = Math.floor(amount * 1);
     console.log('Points to add:', pointsToAdd);
 
     // Get current customer data
@@ -177,7 +177,7 @@ const handler = async (req: Request): Promise<Response> => {
       .from('transactions')
       .insert({
         customer_id,
-        description: `Cumpărătură: ${amount}€`,
+        description: `Cumpărătură: ${amount} lei`,
         points_change: pointsToAdd
       });
 
@@ -185,7 +185,7 @@ const handler = async (req: Request): Promise<Response> => {
       console.error('Error creating transaction:', transactionError);
     }
 
-    console.log(`Added ${pointsToAdd} points to customer ${customer_id} for purchase of ${amount}€`);
+    console.log(`Added ${pointsToAdd} points to customer ${customer_id} for purchase of ${amount} lei`);
 
     return new Response(
       JSON.stringify({
