@@ -52,9 +52,11 @@ export const HistoryScreen: React.FC<HistoryScreenProps> = ({ user }) => {
   return (
     <div className="min-h-screen p-4 pb-20">
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">Istoricul tranzacțiilor</h1>
-        <p className="text-gray-600">Urmăriți călătoria punctelor dumneavoastră</p>
+      <div className="flex justify-center items-center mb-6">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-800 mb-2">Istoricul tranzacțiilor</h1>
+          <p className="text-gray-600">Urmăriți călătoria punctelor dumneavoastră</p>
+        </div>
       </div>
 
       {/* Summary Cards */}
