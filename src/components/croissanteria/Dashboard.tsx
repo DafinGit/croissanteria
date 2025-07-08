@@ -207,8 +207,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onUpdateUs
   return (
     <div className="min-h-screen p-4 pb-20">
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex-1"></div>
+      <div className="relative flex justify-center items-center mb-6">
         <div className="flex flex-col items-center text-center">
           <div className="relative mb-3">
             <Avatar className="w-16 h-16 cursor-pointer hover:opacity-80 transition-opacity">
@@ -240,7 +239,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onUpdateUs
           onClick={onLogout}
           variant="ghost"
           size="sm"
-          className="text-gray-600 hover:text-gray-800"
+          className="absolute right-0 top-0 text-gray-600 hover:text-gray-800"
         >
           <LogOut className="w-4 h-4" />
         </Button>
