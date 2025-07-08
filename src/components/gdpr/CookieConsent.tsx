@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { 
@@ -7,9 +7,7 @@ import {
   Settings, 
   CheckCircle, 
   XCircle, 
-  Shield,
-  BarChart,
-  Target
+  Shield
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Switch } from '@/components/ui/switch';
@@ -17,8 +15,6 @@ import { Label } from '@/components/ui/label';
 
 interface CookiePreferences {
   essential: boolean;
-  analytics: boolean;
-  marketing: boolean;
   functional: boolean;
 }
 
@@ -27,8 +23,6 @@ export const CookieConsent: React.FC = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [preferences, setPreferences] = useState<CookiePreferences>({
     essential: true, // Always true and disabled
-    analytics: false,
-    marketing: false,
     functional: false
   });
 
@@ -46,8 +40,6 @@ export const CookieConsent: React.FC = () => {
   const handleAcceptAll = () => {
     const allAccepted = {
       essential: true,
-      analytics: true,
-      marketing: true,
       functional: true
     };
     
@@ -60,8 +52,6 @@ export const CookieConsent: React.FC = () => {
   const handleRejectAll = () => {
     const onlyEssential = {
       essential: true,
-      analytics: false,
-      marketing: false,
       functional: false
     };
     
@@ -100,9 +90,8 @@ export const CookieConsent: React.FC = () => {
                   🍪 Utilizăm Cookie-uri pentru o Experiență Mai Bună
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  Aplicația noastră folosește cookie-uri pentru a vă oferi cea mai bună experiență. 
-                  Cookie-urile esențiale sunt necesare pentru funcționarea aplicației, 
-                  în timp ce altele ne ajută să îmbunătățim serviciile și să personalizăm conținutul.
+                  Aplicația noastră folosește cookie-uri pentru autentificare și funcționalitățile de bază. 
+                  Cookie-urile esențiale sunt necesare pentru funcționarea aplicației.
                 </p>
               </div>
 
@@ -112,12 +101,8 @@ export const CookieConsent: React.FC = () => {
                   Esențiale (necesare)
                 </Badge>
                 <Badge variant="outline">
-                  <BarChart className="w-3 h-3 mr-1" />
-                  Analiză
-                </Badge>
-                <Badge variant="outline">
-                  <Target className="w-3 h-3 mr-1" />
-                  Marketing
+                  <Settings className="w-3 h-3 mr-1" />
+                  Funcționale
                 </Badge>
               </div>
 
@@ -163,7 +148,7 @@ export const CookieConsent: React.FC = () => {
                             Cookie-uri Esențiale
                           </Label>
                           <p className="text-xs text-muted-foreground mt-1">
-                            Necesare pentru funcționarea aplicației (autentificare, securitate, preferințe de bază)
+                            Necesare pentru autentificare, securitate și funcționarea aplicației
                           </p>
                         </div>
                         <Switch 
@@ -173,49 +158,15 @@ export const CookieConsent: React.FC = () => {
                         />
                       </div>
 
-                      {/* Analytics Cookies */}
+                      {/* Functional Cookies */}
                       <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
                         <div className="flex-1">
                           <Label className="text-sm font-medium flex items-center gap-2">
-                            <BarChart className="w-4 h-4 text-blue-600" />
-                            Cookie-uri de Analiză
-                          </Label>
-                          <p className="text-xs text-muted-foreground mt-1">
-                            Ne ajută să înțelegem cum folosiți aplicația pentru a o îmbunătăți
-                          </p>
-                        </div>
-                        <Switch 
-                          checked={preferences.analytics}
-                          onCheckedChange={(checked) => updatePreference('analytics', checked)}
-                        />
-                      </div>
-
-                      {/* Marketing Cookies */}
-                      <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
-                        <div className="flex-1">
-                          <Label className="text-sm font-medium flex items-center gap-2">
-                            <Target className="w-4 h-4 text-purple-600" />
-                            Cookie-uri de Marketing
-                          </Label>
-                          <p className="text-xs text-muted-foreground mt-1">
-                            Pentru a vă arăta oferte și promoții personalizate
-                          </p>
-                        </div>
-                        <Switch 
-                          checked={preferences.marketing}
-                          onCheckedChange={(checked) => updatePreference('marketing', checked)}
-                        />
-                      </div>
-
-                      {/* Functional Cookies */}
-                      <div className="flex items-center justify-between p-4 bg-orange-50 rounded-lg">
-                        <div className="flex-1">
-                          <Label className="text-sm font-medium flex items-center gap-2">
-                            <Settings className="w-4 h-4 text-orange-600" />
+                            <Settings className="w-4 h-4 text-blue-600" />
                             Cookie-uri Funcționale
                           </Label>
                           <p className="text-xs text-muted-foreground mt-1">
-                            Pentru funcționalități avansate și personalizare
+                            Pentru preferințe locale și personalizarea interfeței
                           </p>
                         </div>
                         <Switch 

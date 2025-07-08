@@ -2,16 +2,12 @@ import { useState, useEffect } from 'react';
 
 export interface CookiePreferences {
   essential: boolean;
-  analytics: boolean;
-  marketing: boolean;
   functional: boolean;
 }
 
 export const useCookieConsent = () => {
   const [preferences, setPreferences] = useState<CookiePreferences>({
     essential: true,
-    analytics: false,
-    marketing: false,
     functional: false
   });
 
@@ -44,8 +40,6 @@ export const useCookieConsent = () => {
     setHasConsented(false);
     setPreferences({
       essential: true,
-      analytics: false,
-      marketing: false,
       functional: false
     });
   };
