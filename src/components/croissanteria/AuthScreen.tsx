@@ -87,7 +87,12 @@ export const AuthScreen: React.FC<AuthScreenProps> = () => {
           email: formData.email,
           password: formData.password,
           options: {
-            emailRedirectTo: `${window.location.origin}/`
+            emailRedirectTo: `${window.location.origin}/`,
+            data: {
+              full_name: formData.name,
+              name: formData.name,
+              birthday: formData.birthday || null
+            }
           }
         });
 
