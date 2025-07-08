@@ -1,10 +1,9 @@
 
 import React from 'react';
-import { Star, Clock } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { User as UserType } from '@/pages/Index';
 import { useRewards } from '@/hooks/useRewards';
 import { RewardCard } from './RewardCard';
-import { PurchasedRewardCard } from './PurchasedRewardCard';
 
 interface RewardsScreenProps {
   user: UserType;
@@ -51,24 +50,6 @@ export const RewardsScreen: React.FC<RewardsScreenProps> = ({ user, onUpdatePoin
             ))}
           </div>
 
-          {/* Purchased Rewards */}
-          {purchasedRewards.length > 0 && (
-            <div className="mt-8">
-              <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <Clock className="w-5 h-5 text-gray-600" />
-                Recompense folosite recent
-              </h2>
-              
-              <div className="space-y-3">
-                {purchasedRewards.map((transaction) => (
-                  <PurchasedRewardCard
-                    key={transaction.id}
-                    transaction={transaction}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
         </>
       )}
     </div>
