@@ -359,27 +359,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onUpdateUs
           </div>
         </CardContent>
       </Card>
-
-      {/* Quick Stats */}
-      <div className="grid grid-cols-2 gap-4">
-        <Card className="backdrop-blur-sm bg-white/80 shadow-lg border-0">
-          <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-amber-600 mb-1">
-              {Math.floor(user.points / 100)}
-            </div>
-            <p className="text-sm text-gray-600">Produse gratuite câștigate</p>
-          </CardContent>
-        </Card>
-        
-        <Card className="backdrop-blur-sm bg-white/80 shadow-lg border-0">
-          <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-orange-600 mb-1">
-              {user.points > 0 ? Math.floor(user.points / 25) : 0}
-            </div>
-            <p className="text-sm text-gray-600">Vizite luna aceasta</p>
-          </CardContent>
-        </Card>
-      </div>
     </div>
   );
 };

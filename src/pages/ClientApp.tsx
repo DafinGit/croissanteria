@@ -185,14 +185,6 @@ export const ClientApp: React.FC = () => {
         </Button>
       </div>
 
-      {/* Client Header */}
-      <div className="text-center pt-16 pb-4">
-        <div className="bg-white/80 backdrop-blur-sm mx-4 rounded-lg shadow-md p-3">
-          <h1 className="text-lg font-bold text-blue-600">Mod Client</h1>
-          <p className="text-sm text-gray-600">Afișează QR-ul pentru a câștiga puncte</p>
-        </div>
-      </div>
-
       {/* Screen Content */}
       {renderScreen()}
 
