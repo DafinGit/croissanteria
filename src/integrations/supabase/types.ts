@@ -84,6 +84,7 @@ export type Database = {
           created_at: string
           email: string
           id: string
+          loyalty_level: string | null
           name: string | null
           points: number | null
           updated_at: string | null
@@ -94,6 +95,7 @@ export type Database = {
           created_at?: string
           email: string
           id: string
+          loyalty_level?: string | null
           name?: string | null
           points?: number | null
           updated_at?: string | null
@@ -104,6 +106,7 @@ export type Database = {
           created_at?: string
           email?: string
           id?: string
+          loyalty_level?: string | null
           name?: string | null
           points?: number | null
           updated_at?: string | null
@@ -221,7 +224,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      calculate_loyalty_level: {
+        Args: { points_value: number }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
