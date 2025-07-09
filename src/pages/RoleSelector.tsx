@@ -12,7 +12,7 @@ export const RoleSelector: React.FC = () => {
       <div className="max-w-4xl w-full">
         {/* Header */}
         <div className="text-center mb-6">
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center -mb-20">
             <img 
               src="/lovable-uploads/9bbd755c-b97a-4055-887e-dfa1237c20c7.png" 
               alt="Croissanteria Logo" 
