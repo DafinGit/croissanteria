@@ -12,9 +12,12 @@ export const RoleSelector: React.FC = () => {
       <div className="max-w-4xl w-full">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Coffee className="w-8 h-8 text-amber-600" />
-            <h1 className="text-4xl font-bold text-gray-800">Croissanteria</h1>
+          <div className="flex items-center justify-center mb-4">
+            <img 
+              src="/lovable-uploads/9bbd755c-b97a-4055-887e-dfa1237c20c7.png" 
+              alt="Croissanteria Logo" 
+              className="w-32 h-32 opacity-90"
+            />
           </div>
           <p className="text-gray-600 text-lg">Alege rolul tău pentru a continua</p>
         </div>
@@ -81,12 +84,6 @@ export const RoleSelector: React.FC = () => {
           </Card>
         </div>
 
-        {/* Footer */}
-        <div className="text-center mt-8">
-          <p className="text-gray-500 text-sm">
-            Aplicația funcționează symbiotic - clientul afișează QR-ul, barista îl scanează
-          </p>
-        </div>
       </div>
     </div>
   );
