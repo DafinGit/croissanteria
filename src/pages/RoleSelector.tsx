@@ -16,7 +16,7 @@ export const RoleSelector: React.FC = () => {
             <img 
               src="/lovable-uploads/9bbd755c-b97a-4055-887e-dfa1237c20c7.png" 
               alt="Croissanteria Logo" 
-              className="w-32 h-32 opacity-90"
+              className="w-32 h-32 opacity-60"
             />
           </div>
           <p className="text-gray-600 text-lg">Alege rolul tău pentru a continua</p>
