@@ -16,7 +16,7 @@ export const RoleSelector: React.FC = () => {
             <img 
               src="/lovable-uploads/9bbd755c-b97a-4055-887e-dfa1237c20c7.png" 
               alt="Croissanteria Logo" 
-              className="w-32 h-32 mix-blend-multiply"
+              className="w-96 h-96 mix-blend-multiply"
               style={{ backgroundColor: 'transparent' }}
             />
           </div>
