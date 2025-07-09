@@ -11,8 +11,8 @@ export const RoleSelector: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center p-4">
       <div className="max-w-4xl w-full">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center mb-4">
+        <div className="text-center mb-6">
+          <div className="flex items-center justify-center mb-2">
             <img 
               src="/lovable-uploads/9bbd755c-b97a-4055-887e-dfa1237c20c7.png" 
               alt="Croissanteria Logo" 
